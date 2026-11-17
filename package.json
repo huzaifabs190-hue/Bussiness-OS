@@ -1,0 +1,1 @@
+{"name":"businessos","private":true,"version":"0.1.0","packageManager":"pnpm@11.22.0","scripts":{"dev":"pnpm --filter @businessos/website dev --host 127.0.0.1","build":"turbo run build","typecheck":"tsc --noEmit","test":"vitest run"},"devDependencies":{"@types/react":"^19.0.0","@types/react-dom":"^19.0.0","typescript":"^5.9.0","turbo":"^2.5.0","vitest":"^3.2.0"}}
