@@ -1,0 +1,7 @@
+import {expect,it} from 'vitest';
+import {workspaceDestination,readWorkspaceRoute} from './workspaceNavigation';
+it('keeps stock context in all workspaces with stock',()=>{expect(workspaceDestination('retail','/demo/inventory')).toBe('#/retail/stock');expect(workspaceDestination('restaurant','/retail/stock')).toBe('#/restaurant/menu');expect(workspaceDestination('pharma','/restaurant/menu')).toBe('#/demo/inventory');});
+it('maps overview and transaction history including clinic billing',()=>{expect(workspaceDestination('clinic','/demo/dashboard')).toBe('#/clinic/overview');expect(workspaceDestination('clinic','/retail/sales')).toBe('#/clinic/billing');expect(workspaceDestination('pharma','/clinic/billing')).toBe('#/demo/sales');});
+it('prefers an equivalent section over remembered page',()=>{expect(workspaceDestination('retail','/demo/inventory','checkout')).toBe('#/retail/stock');});
+it('restores a valid remembered page when no equivalent exists',()=>{expect(workspaceDestination('retail','/restaurant/kitchen','stock')).toBe('#/retail/stock');expect(workspaceDestination('clinic','/demo/inventory','patients')).toBe('#/clinic/patients');expect(workspaceDestination('clinic','/demo/inventory','invalid')).toBe('#/clinic/appointments');});
+it('preserves the current tab and ignores query strings',()=>{expect(workspaceDestination('restaurant','/restaurant/tables')).toBe('#/restaurant/tables');expect(workspaceDestination('retail','/demo/pos?q=Panadol')).toBe('#/retail/checkout');expect(readWorkspaceRoute('/products/retail')).toBeNull();});
